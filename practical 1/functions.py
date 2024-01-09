@@ -8,7 +8,6 @@ studentDictionary = {
 #region Input Functions
 def getNumberOfStudent(n:int):
     studentDictionary["numberOfStudents"] = n
-    studentDictionary["blankStudent"] = n
 
 def getStudentInformation(name:str, Id:str,Dob:str):
     if len(studentDictionary["students"]) == studentDictionary["numberOfStudents"]:
@@ -60,6 +59,6 @@ def listMark(courseID:str):
     for course in studentDictionary["courses"]:
         if courseID == course["id"]:
             for i in range(0,studentDictionary["numberOfStudents"]):
-                print(f"{studentDictionary['students'][i]['name']} got {course['mark'][i]:.2f} in {course['name']}")
+                print(f"{studentDictionary['students'][i]['name']} got {course['mark'][i]:.2f}")
 #endregion
                 

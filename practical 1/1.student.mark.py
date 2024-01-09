@@ -2,7 +2,10 @@ import functions as fn
 from openpyxl import load_workbook
 from random import randint
 
-wb = load_workbook("studentData.xlsx")
+path = __file__[:-17]
+
+
+wb = load_workbook(path + "studentData.xlsx")
 ws = wb.active
 
 fn.getNumberOfCourses(3)
@@ -16,7 +19,12 @@ fn.getCourseInfomation("ADS","Algorithm and Data Structure")
 #input students information and mark
 for i in range(2,471):
     name = ws.cell(row=i,column=2).value +" "+ ws.cell(row=i,column=3).value
-    dob = str(ws.cell(row=i,column=4).value)[:-9]
+    
+    dob = str(ws.cell(row=i,column=4).value)
+
+    if len(dob) > 10:
+        dob = dob[:-9]
+
     id = ws.cell(row=i,column=1).value
     fn.getStudentInformation(name, id, dob)
     fn.getStudentMark(id,"OOP",randint(5,18))
