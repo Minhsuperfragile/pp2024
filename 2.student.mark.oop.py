@@ -1,3 +1,6 @@
+from openpyxl import load_workbook
+from random import randint
+
 class Course():
     __courseName:str
     __courseID:str
@@ -40,14 +43,14 @@ class Student():
                 for i in range(len(mark),noc):
                     mark.append(0)
 
-            self.__courses["course"] += course
-            self.__courses["mark"] += mark
-        else:
-            self.__courses["course"].append(course)
-            self.__courses["mark"].append(mark)
+        self.__courses["course"] = course
+        self.__courses["mark"] = mark
         self.__name = name
         self.__id = id
         self.__dob = dob
+
+    def set__courses(self, c:dict) -> None:
+        self.__courses = c
 
     def get__name(self) -> str:
         return self.__name
@@ -59,18 +62,39 @@ class Student():
         return self.__id
 
     def printOut(self) -> None:
-        print(f'{self.__name}, {self.__id}, {self.__dob} + involved these courses:\n')
+        print(f'{self.__name}, {self.__id}, {self.__dob} involved these courses:')
         for i in range(0,len(self.__courses["course"])):
-            print(f'{self.__courses["course"][i].get__name()}: {self.__courses["mark"][i]}\n')
+            print(f'{self.__courses["course"][i].get__name()}: {self.__courses["mark"][i]}')
 
 def main():
+    path = __file__[:-21]
+
+    wb = load_workbook(path + "studentData.xlsx")
+    ws = wb.active
+
     app = Course("Advanced Programming with Python","APP")
     ads = Course("Algorithm and Data Structure","ADS")
     oop = Course("Object Oriented Programming","OOP")
     courseList = [app,ads,oop]
+    studentList = []
 
-    student = Student("NguyenTrongMinh", "22BI13304", "27/10/2004", courseList)
-    
-    student.printOut()
-    
+    for i in range(2,471):
+        name = ws.cell(row=i,column=2).value +" "+ ws.cell(row=i,column=3).value
+        
+        dob = str(ws.cell(row=i,column=4).value)
+
+        if len(dob) > 10:
+            dob = dob[:-9]
+
+        id = ws.cell(row=i,column=1).value
+
+        markList = [0,0,0]
+        markList[0] = randint(5,18)
+        markList[1] = randint(5,18)
+        markList[2] = randint(5,18)
+
+        student = Student(name,id,dob,courseList,markList)
+        studentList.append(student)
+        student.printOut()
+        
 main()   
