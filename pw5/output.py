@@ -21,6 +21,8 @@ def listAllOut(students:list)->None:
 def clear() -> None:
     st('cls' if osn == 'nt' else 'clear')
 
+def writeToTextFile():
+    print("Successfully!")
 #region button function
 studentList = sampleStudents(sampleCourses())
 
@@ -32,4 +34,7 @@ def listAllOutCmd() -> None:
 
 def shuffleButtonCmd() -> None:
     shuffle(studentList)
+
+def writeToTextFileCmd()-> None:
+    writeToTextFile()
 #endregion
