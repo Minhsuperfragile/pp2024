@@ -21,10 +21,60 @@ def listAllOut(students:list)->None:
 def clear() -> None:
     st('cls' if osn == 'nt' else 'clear')
 
-def writeToTextFile():
-    print("Successfully!")
+def writeToTextFile(path:str,students:list,courses:list) -> int:
+    studentPath = path + "student.txt"
+    coursePath = path + "course.txt"
+    markPath = path + "mark.txt"
+        
+    try:
+        with open(studentPath) as file:
+            for st in students:
+                file.write(st)
+    except:
+        print(f'no {studentPath}')
+        return -1
+
+    try:
+        with open(coursePath) as file:
+            for cs in courses:
+                file.write(cs)
+    except:
+        print(f"no {coursePath}")
+        return -2
+    
+    try:
+        with open(markPath) as file:
+            for st in students:
+                if st.get__numberOfCourses() == 1:
+                    markStr = f"{st.get__mark()}\n"
+                else:
+                    markStr = ""
+                    for i in range(st.get__numberOfCourses()):
+                        markStr += f" {st.get__mark()[i]}"
+                    markStr += "\n"
+                file.write(markStr)
+    except:
+        print(f"no {markPath}")
+        return -3
+
+def unitTest(students:list, courses:list):
+    for st in students:
+        print(st)
+    for cs in courses:
+        print(cs)
+    for st in students:
+        if st.get__numberOfCourses() == 1:
+            markStr = f"{st.get__mark()}\n"
+        else:
+            markStr = ""
+            for i in range(st.get__numberOfCourses()):
+                markStr += f" {st.get__mark()[i]}"
+            markStr += "\n"
+        print(markStr)
+
 #region button function
-studentList = sampleStudents(sampleCourses())
+courseList = sampleCourses()
+studentList = sampleStudents(courseList)
 
 def sortButtonCmd() -> None:
     sortGPA(studentList)
@@ -36,5 +86,10 @@ def shuffleButtonCmd() -> None:
     shuffle(studentList)
 
 def writeToTextFileCmd()-> None:
-    writeToTextFile()
+    path = __file__[:-len(__file__.split('\\')[-1])]
+    print(__file__)
+    writeToTextFile(path,studentList,courseList)
 #endregion
+
+if __name__ == "__main__":
+    unitTest(studentList, courseList)

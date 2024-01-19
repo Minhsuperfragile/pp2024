@@ -7,6 +7,9 @@ class Course():
         self.__courseName = courseName
         self.__courseID = courseID
         self.__credit = courseCredit
+    
+    def __str__(self) -> str:
+        return f"{self.__courseName}|{self.__courseID}|{self.__credit}"
 
     def get__id(self) -> str:
         return self.__courseID

@@ -9,6 +9,9 @@ class Student():
     __mark:list|float
     __gpa:float
     __numberOfCourse:int
+    
+    def __str__(self) -> str:
+        return f"{self.__name}|{self.__id}|{self.__dob}"
 
     def addCourse(self, course:Course, mark:float = 0) -> None:
         self.__course.append(course)
@@ -70,6 +73,9 @@ class Student():
     
     def get__mark(self) -> list:
         return self.__mark
+    
+    def get__numberOfCourses(self) -> int:
+        return self.__numberOfCourse
 
     def printOut(self) -> None:
         print(f'{self.__name}, {self.__id}, {self.__dob} has GPA: {self.__gpa} and involved these courses:')

@@ -5,7 +5,7 @@ from tkinter import ttk
 #region window UI
 window = tk.Tk()
 window.title('Cursed UI')
-window.geometry('300x200')
+window.geometry('300x300')
 window.resizable(False, False)
 
 #ttk style
@@ -30,6 +30,9 @@ shuffleButton.pack(ipadx=7,ipady=7)
 
 printButton = ttk.Button(master= window, text= 'list',command= listAllOutCmd)
 printButton.pack(ipadx=7,ipady=7)
+
+writeButton = ttk.Button(master= window, text= 'write',command= writeToTextFileCmd)
+writeButton.pack(ipadx=7,ipady=7)
 
 window.mainloop()
 #endregion
