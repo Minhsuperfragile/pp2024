@@ -27,7 +27,7 @@ def writeToTextFile(path:str,students:list,courses:list) -> int:
     markPath = path + "mark.txt"
         
     try:
-        with open(studentPath) as file:
+        with open(studentPath,'w') as file:
             for st in students:
                 file.write(st)
     except:
@@ -86,10 +86,13 @@ def shuffleButtonCmd() -> None:
     shuffle(studentList)
 
 def writeToTextFileCmd()-> None:
-    path = __file__[:-len(__file__.split('\\')[-1])]
-    print(__file__)
+    if osn == 'nt':
+        path = __file__[:-len( __file__.split('\\')[-1])]
+    else:
+        path = __file__[:-len( __file__.split('/')[-1])]
     writeToTextFile(path,studentList,courseList)
 #endregion
 
 if __name__ == "__main__":
-    unitTest(studentList, courseList)
+    writeToTextFileCmd()
+
