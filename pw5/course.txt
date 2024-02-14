@@ -1,0 +1,3 @@
+Advanced Programming with Python|APP|4
+Algorithm and Data Structure|ADS|3
+Object Oriented Programming|OOP|3

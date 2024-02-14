@@ -77,6 +77,9 @@ class Student():
     def get__numberOfCourses(self) -> int:
         return self.__numberOfCourse
 
+    def get__course(self) -> list:
+        return self.__course
+
     def printOut(self) -> None:
         print(f'{self.__name}, {self.__id}, {self.__dob} has GPA: {self.__gpa} and involved these courses:')
         for i in range(0,self.__numberOfCourse):

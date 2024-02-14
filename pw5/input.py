@@ -3,6 +3,16 @@ from math import floor
 from random import random, seed
 from domain import CourseClass,StudentClass
 from os import name as osn 
+import pandas as pd
+
+def decompress() -> None:
+    try:
+        cols = ['name','id','dob']
+        students = pd.read_csv('students.dat')
+        print(students)
+    except:
+        print('failed to open students.dat')
+
 
 def sampleCourses() -> list:
     app = CourseClass.Course("Advanced Programming with Python","APP",4)
@@ -37,3 +47,7 @@ def sampleStudents(courseList:list) -> list:
         studentList += [StudentClass.Student(name,id,dob,courseList,markList)]
         
     return studentList
+
+if __name__ == '__main__':
+    decompress()
+
