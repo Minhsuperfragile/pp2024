@@ -1,4 +1,4 @@
-from input import sampleCourses,sampleStudents
+from input import sampleCourses,sampleStudents,getPath
 from os import system as st, name as osn
 from random import shuffle
 from pandas import DataFrame
@@ -18,9 +18,6 @@ def sortGPA(studentList:list) -> None:
 def listAllOut(students:list)->None:
     for student in students:
         student.printOut()
-
-def clear() -> None:
-    st('cls' if osn == 'nt' else 'clear')
 
 def writeToTextFile(path:str,students:list,courses:list) -> int:
     studentPath = path + "student.txt"
@@ -59,7 +56,7 @@ def writeToTextFile(path:str,students:list,courses:list) -> int:
         print(f"no {markPath}")
         return -3
 
-def compress(students:list, courses:list) -> int:
+def compress(students:list) -> int:
     data = {
         'name':  [],
         'id': [],
@@ -72,6 +69,7 @@ def compress(students:list, courses:list) -> int:
     for i in range(data['size of course'][0]):
         data[students[0].get__course()[i].get__name()] = []
         data['course'].append(students[0].get__course()[i].get__id()+'@'+str(students[0].get__course()[i].get__credit()))
+
     for st in students:
         data['name'].append(st.get__name())
         data['id'].append(st.get__id())
@@ -79,8 +77,10 @@ def compress(students:list, courses:list) -> int:
         data['gpa'].append(st.get__gpa())
         for i in range(data['size of course'][0]):
             data[st.get__course()[i].get__name()].append(st.get__mark()[i])
+
     for i in range(len(data['course']),len(data['name'])):
         data['course'].append('')
+
     for i in range(1,len(data['name'])):
         data['size of course'].append(None)
     
@@ -91,38 +91,23 @@ def compress(students:list, courses:list) -> int:
 courseList = sampleCourses()
 studentList = sampleStudents(courseList)
 
-def sortButtonCmd() -> None:
-    sortGPA(studentList)
-
-def lisAllOutCmd() -> None:
-    listAllOut(studentList)
-
-def shuffleButtonCmd() -> None:
-    shuffle(studentList)
-
-def compressCmd() -> None:
-    compress(studentList, courseList)
-
-#region button CMD
-courseList = sampleCourses()
-studentList = sampleStudents(courseList)
-
-def sortButtonCmd() -> None:
-    sortGPA(studentList)
-
-def listAllOutCmd() -> None:
-    listAllOut(studentList)
-
-def shuffleButtonCmd() -> None:
-    shuffle(studentList)
-
-def writeToTextFileCmd()-> None:
-    if osn == 'nt':
-        path = __file__[:-len( __file__.split('\\')[-1])]
-    else:
-        path = __file__[:-len( __file__.split('/')[-1])]
-    writeToTextFile(path,studentList,courseList)
+class cmdFunction:
+    @staticmethod
+    def clear() -> None:
+        st('cls' if osn == 'nt' else 'clear')
+    @staticmethod
+    def sortButtonCmd() -> None:
+        sortGPA(studentList)
+    @staticmethod
+    def listAllOutCmd() -> None:
+        listAllOut(studentList)
+    @staticmethod
+    def shuffleButtonCmd() -> None:
+        shuffle(studentList)
+    @staticmethod
+    def writeToTextFileCmd()-> None:
+        writeToTextFile(getPath(),studentList,courseList)
 #endregion
 
 if __name__ == "__main__":
-    compress(studentList, courseList)
+    compress(studentList)

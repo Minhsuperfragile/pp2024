@@ -5,11 +5,21 @@ from domain import CourseClass,StudentClass
 from os import name as osn 
 import pandas as pd
 
+def getPath() -> str:
+    if osn == 'nt':
+        path = __file__[:-len( __file__.split('\\')[-1])]
+    else:
+        path = __file__[:-len( __file__.split('/')[-1])]
+    return path
+
 def decompress() -> None:
     try:
         cols = ['name','id','dob']
-        students = pd.read_csv('students.dat')
-        print(students)
+        students = pd.read_csv(getPath() + 'students.dat')
+        try:
+            print(students.loc(2))
+        except:
+            print('students.loc no work with integer')
     except:
         print('failed to open students.dat')
 
@@ -21,10 +31,8 @@ def sampleCourses() -> list:
     return [app,ads,oop]
 
 def sampleStudents(courseList:list) -> list:
-    if osn == 'nt':
-        path = __file__[:-len(__file__.split('\\')[-1])]
-    else:
-        path = __file__[:-len( __file__.split('/')[-1])]
+    path = getPath()
+
     initSeed = 1573
     wb = load_workbook(path + "studentData.xlsx")
     ws = wb.active

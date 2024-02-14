@@ -1,4 +1,4 @@
-from output import *
+from output import cmdFunction as cmd
 import tkinter as tk
 from tkinter import ttk
 
@@ -19,19 +19,19 @@ label = ttk.Label(master= window,text= 'student management terminal controller')
 label.pack()
 
 #ttk button
-refreshButton = ttk.Button(master= window, text= 'refresh',command= clear)
+refreshButton = ttk.Button(master= window, text= 'refresh',command= cmd.clear)
 refreshButton.pack(ipadx=7,ipady=7)
 
-sortButton = ttk.Button(master= window, text= 'sort',command= sortButtonCmd)
+sortButton = ttk.Button(master= window, text= 'sort',command= cmd.sortButtonCmd)
 sortButton.pack(ipadx=7,ipady=7)
 
-shuffleButton = ttk.Button(master= window, text= 'shuffle',command= shuffleButtonCmd)
+shuffleButton = ttk.Button(master= window, text= 'shuffle',command= cmd.shuffleButtonCmd)
 shuffleButton.pack(ipadx=7,ipady=7)
 
-printButton = ttk.Button(master= window, text= 'list',command= listAllOutCmd)
+printButton = ttk.Button(master= window, text= 'list',command= cmd.listAllOutCmd)
 printButton.pack(ipadx=7,ipady=7)
 
-writeButton = ttk.Button(master= window, text= 'write',command= writeToTextFileCmd)
+writeButton = ttk.Button(master= window, text= 'write',command= cmd.writeToTextFileCmd)
 writeButton.pack(ipadx=7,ipady=7)
 
 window.mainloop()
