@@ -1,4 +1,4 @@
-from input import sampleCourses,sampleStudents,getPath
+from input import sampleCourses,sampleStudents,getPath,decompress
 from os import system as st, name as osn
 from random import shuffle
 from pandas import DataFrame
@@ -25,24 +25,24 @@ def writeToTextFile(path:str,students:list,courses:list) -> int:
     markPath = path + "mark.txt"
         
     try:
-        with open(studentPath,'w') as file:
+        with open(studentPath,'w',encoding= 'utf-8') as file:
             file.seek(0)
             for st in students:
                 file.write(st.__str__() + "\n")
-    except:
-        print(f'no {studentPath}')
+    except Exception as e:
+        print(f'no {studentPath} \n{e}')
         return -1
 
     try:
-        with open(coursePath,'w') as file:
+        with open(coursePath,'w',encoding='utf-8') as file:
             for cs in courses:
                 file.write(cs.__str__() + '\n')
-    except:
-        print(f"no {coursePath}")
+    except Exception as e:
+        print(f"no {coursePath}\n{e}")
         return -2
     
     try:
-        with open(markPath,'w') as file:
+        with open(markPath,'w',encoding='utf-8') as file:
             for st in students:
                 if st.get__numberOfCourses() == 1:
                     markStr = f"{st.get__mark()}\n"
@@ -52,8 +52,8 @@ def writeToTextFile(path:str,students:list,courses:list) -> int:
                         markStr += f" {st.get__mark()[i]}"
                     markStr += "\n"
                 file.write(markStr)
-    except:
-        print(f"no {markPath}")
+    except Exception as e:
+        print(f"no {markPath}\n{e}")
         return -3
 
 def compress(students:list) -> int:
@@ -88,8 +88,13 @@ def compress(students:list) -> int:
     return 0
 
 #region button CMD
-courseList = sampleCourses()
-studentList = sampleStudents(courseList)
+
+courseList = []
+studentList = []
+
+if decompress(studentList,courseList):
+    courseList = sampleCourses()
+    studentList = sampleStudents(courseList)
 
 class cmdFunction:
     @staticmethod
@@ -105,9 +110,9 @@ class cmdFunction:
     def shuffleButtonCmd() -> None:
         shuffle(studentList)
     @staticmethod
-    def writeToTextFileCmd()-> None:
+    def writeToTextFileCmd() -> None:
         writeToTextFile(getPath(),studentList,courseList)
 #endregion
 
 if __name__ == "__main__":
-    compress(studentList)
+    print("success")

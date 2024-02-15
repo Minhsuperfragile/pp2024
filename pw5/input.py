@@ -13,8 +13,6 @@ def getPath() -> str:
     return path
 
 def decompress(studentList:list,courseList:list) -> int:
-    
-
     try:
         students = pd.read_csv(getPath() + 'students.dat')
         
@@ -27,30 +25,29 @@ def decompress(studentList:list,courseList:list) -> int:
             courseList.append(CourseClass.Course(
                 cols[i-numberOfCourse],
                 IdAndCredit[0],
-                IdAndCredit[1]
+                int(IdAndCredit[1])
                 ))
 
         #students
         for i in range(len(students)):
-            oneStudent = students.iloc[i]
-            print(oneStudent)
-            studentList.append(StudentClass.Student(
-                oneStudent.iloc[1],
-                oneStudent.iloc[2],
-                oneStudent.iloc[3],
-                courseList, []
-            ))
-            
-            
+            # print(courseList)
+            marks = []
+            for k in range(7,7+numberOfCourse):
+                marks.append(int(students.iat[i,k]))
 
-
-
+            studentList.append(
+                StudentClass.Student(
+                    students.iat[i,1],
+                    students.iat[i,2],
+                    students.iat[i,3],
+                    courseList, marks
+                )
+            )
 
         return 0
     except:
         print('failed to open students.dat')
         return 1
-
 
 def sampleCourses() -> list:
     app = CourseClass.Course("Advanced Programming with Python","APP",4)

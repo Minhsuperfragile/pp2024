@@ -21,6 +21,8 @@ class Student():
     def __calculateGPA(self) -> float:
         gpa:float = 0
         totalCredit:int = 0
+        if self.__mark == 0:
+            return 0
         for i in range(0,self.__numberOfCourse):
             course = self.__course[i]
             mark = self.__mark[i]
