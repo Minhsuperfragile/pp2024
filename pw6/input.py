@@ -4,6 +4,7 @@ from random import random, seed
 from domain import CourseClass,StudentClass
 from os import name as osn 
 import pandas as pd
+from pickle import load
 
 def getPath() -> str:
     if osn == 'nt':
@@ -81,8 +82,11 @@ def sampleStudents(courseList:list) -> list:
         
     return studentList
 
-if __name__ == '__main__':
-    stList = []
-    csList = []
-    decompress(stList,csList)
-
+def pickleRead():
+    studentList = [] 
+    with open(getPath() + 'students.dat', 'rb') as file:
+        while True:
+            try:
+                studentList.append(load(file))
+            except EOFError:
+                return studentList

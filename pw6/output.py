@@ -1,7 +1,8 @@
-from input import sampleCourses,sampleStudents,getPath,decompress
+from input import getPath,decompress,pickleRead
 from os import system as st, name as osn
 from random import shuffle
 from pandas import DataFrame
+from pickle import dump
 
 def sortGPA(studentList:list) -> None:
     n = len(studentList)
@@ -87,14 +88,20 @@ def compress(students:list) -> int:
     DataFrame(data).to_csv('students.dat')
     return 0
 
+def pickleWrite(studentList:list):
+    with open(getPath() + 'students.dat', 'wb') as file:
+        for st in studentList:
+            dump(st, file)
+
+
 #region button CMD
 
 courseList = []
 studentList = []
 
 if decompress(studentList,courseList):
-    courseList = sampleCourses()
-    studentList = sampleStudents(courseList)
+    studentList = pickleRead()
+    courseList = studentList[0].get__course()
 
 class cmdFunction:
     @staticmethod
@@ -113,6 +120,3 @@ class cmdFunction:
     def writeToTextFileCmd() -> None:
         writeToTextFile(getPath(),studentList,courseList)
 #endregion
-
-if __name__ == "__main__":
-    print("success")
