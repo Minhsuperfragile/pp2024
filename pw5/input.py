@@ -12,16 +12,44 @@ def getPath() -> str:
         path = __file__[:-len( __file__.split('/')[-1])]
     return path
 
-def decompress() -> None:
+def decompress(studentList:list,courseList:list) -> int:
+    
+
     try:
-        cols = ['name','id','dob']
         students = pd.read_csv(getPath() + 'students.dat')
-        try:
-            print(students.loc(2))
-        except:
-            print('students.loc no work with integer')
+        
+        #courses
+        numberOfCourse = int(students.head().iloc[0,5])
+        cols = list(students.columns)
+        
+        for i in range(numberOfCourse):
+            IdAndCredit = students.head().iloc[i,4].split('@')
+            courseList.append(CourseClass.Course(
+                cols[i-numberOfCourse],
+                IdAndCredit[0],
+                IdAndCredit[1]
+                ))
+
+        #students
+        for i in range(len(students)):
+            oneStudent = students.iloc[i]
+            print(oneStudent)
+            studentList.append(StudentClass.Student(
+                oneStudent.iloc[1],
+                oneStudent.iloc[2],
+                oneStudent.iloc[3],
+                courseList, []
+            ))
+            
+            
+
+
+
+
+        return 0
     except:
         print('failed to open students.dat')
+        return 1
 
 
 def sampleCourses() -> list:
@@ -57,5 +85,7 @@ def sampleStudents(courseList:list) -> list:
     return studentList
 
 if __name__ == '__main__':
-    decompress()
+    stList = []
+    csList = []
+    decompress(stList,csList)
 
